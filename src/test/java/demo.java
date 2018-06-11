@@ -28,8 +28,8 @@ public class demo {
         String localIPAddress="";
         try {
             localIPAddress = getLocalHost().getHostAddress();
-            seleniumProxy.setHttpProxy("192.168.0.105:"+proxy.getPort());
-            seleniumProxy.setSslProxy("192.168.0.105:"+proxy.getPort());
+            seleniumProxy.setHttpProxy(localIPAddress+":"+proxy.getPort());
+            seleniumProxy.setSslProxy(localIPAddress+":"+proxy.getPort());
             System.out.println(localIPAddress+proxy.getPort());
         }
         catch (Exception e){
@@ -39,7 +39,7 @@ public class demo {
 //        InternetExplorerDriver ieDriver = new InternetExplorerDriver();
 //        InternetExplorerOptions ieOptions = new InternetExplorerOptions();
         ChromeOptions options = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\heet1\\AppData\\Roaming\\npm\\node_modules\\protractor\\node_modules\\webdriver-manager\\selenium\\chromedriver_2.34.exe");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/share/chromedriver");
 //        options.setCapability(CapabilityType.PROXY, seleniumProxy);
         options.setProxy(seleniumProxy);
         options.setCapability("network.proxy.http", localIPAddress);
@@ -48,14 +48,15 @@ public class demo {
 //                new ChromeDriverService.Builder().withWhitelistedIps("").withVerbose(true).build();
                 proxy.newHar("zerohedge.har");
         ChromeDriver driver = new ChromeDriver( options);
-        driver.get("https://www.google.com");
+        driver.get("https://www.zerohedge.com");
+        driver.manage().window().maximize();
         Har har = proxy.getHar();
         List<HarEntry> entries = proxy.getHar().getLog().getEntries();
         System.out.println(entries.size());
         for(HarEntry entry: entries){
             System.out.println(entry.getRequest().getUrl());
         }
-        File harFile = new File("D:\\code\\test_har.har");
+        File harFile = new File("/home/heet/test_run_2.har");
 
         try {
             har.writeTo(harFile);

@@ -1,4 +1,3 @@
-import com.sun.deploy.util.SessionState;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.core.har.Har;
@@ -33,9 +32,9 @@ public class demo1 {
         options.setCapability(CapabilityType.PROXY, proxy);
         options.setCapability("network.proxy.http", getLocalHost().getHostAddress());
         options.setCapability("network.proxy.http_port", server.getPort());
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\heet1\\AppData\\Roaming\\npm\\node_modules\\protractor\\node_modules\\webdriver-manager\\selenium\\chromedriver_2.34.exe");
+        System.setProperty("webdriver.chrome.driver", "/usr/local/share/chromedriver");
         driver = new ChromeDriver(options);
-        System.out.println("Port started:"+ server.getClientBindAddress());
+        System.out.println("Port started:"+ getLocalHost().getHostAddress());
     }
 
     @Test
@@ -49,7 +48,7 @@ public class demo1 {
     @AfterClass
     public void teardown() throws Exception{
         Har har = server.getHar();
-        File harFile = new File("D:\\code\\test_run_1.har");
+        File harFile = new File("/home/heet/test_run_1.har");
         har.writeTo(harFile);
         driver.quit();
         server.stop();

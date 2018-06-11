@@ -12,8 +12,7 @@
         <dependency>
             <groupId>net.lightbody.bmp</groupId>
             <artifactId>browsermob-core</artifactId>
-            <version>2.1.2</version>
-            <scope>test</scope>
+            <version>2.1.5</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
